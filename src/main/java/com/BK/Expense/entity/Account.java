@@ -4,6 +4,7 @@ import com.BK.Expense.enums.RoleEnum;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
@@ -33,10 +34,11 @@ public class Account {
     @Enumerated(EnumType.STRING)
     @Column(name = "role", insertable = false, updatable = false) //  Prevent duplicate mapping
     protected RoleEnum role;
-    protected Account() {}
+
+    public Account() {}
 
 
-    protected Account(String email, String password, RoleEnum roleEnum) {
+    public Account(String email, String password, RoleEnum roleEnum) {
         this.email = email;
         this.password = password;
         this.role = roleEnum;

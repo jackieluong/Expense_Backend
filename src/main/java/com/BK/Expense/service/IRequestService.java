@@ -6,4 +6,7 @@ import com.BK.Expense.entity.ExpenseRequest;
 public interface IRequestService {
 
     ExpenseRequestDto createExpenseRequest(ExpenseRequestDto expenseRequest);
+
+    ExpenseRequestDto updateExpenseRequest(ExpenseRequestDto expenseRequestDto, long id);
+
 }

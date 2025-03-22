@@ -7,10 +7,7 @@ import com.BK.Expense.service.IRequestService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/requests")
@@ -37,4 +34,22 @@ public class ExpenseRequestController {
         return new ResponseEntity(resultObject, HttpStatus.CREATED);
 
     }
+
+    @PutMapping
+    public ResponseEntity<ResultObject> updateRequest(@Valid @RequestBody ExpenseRequestDto expenseRequestDto, @RequestParam(name = "id") long id) {
+
+        ExpenseRequestDto result = requestService.updateExpenseRequest(expenseRequestDto, id);
+
+        ResultObject resultObject = ResultObject.builder()
+                .httpStatus(HttpStatus.CREATED)
+                .message("Update successfully")
+                .isSuccess(true)
+                .data(result)
+                .build();
+
+        return new ResponseEntity(resultObject, HttpStatus.OK);
+
+    }
+
+
 }

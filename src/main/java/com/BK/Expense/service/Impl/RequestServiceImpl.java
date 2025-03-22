@@ -4,6 +4,7 @@ import com.BK.Expense.dto.ExpenseRequestDto;
 import com.BK.Expense.entity.Account;
 import com.BK.Expense.entity.ExpenseRequest;
 import com.BK.Expense.enums.StatusEnum;
+import com.BK.Expense.exception.ResourceNotFoundException;
 import com.BK.Expense.repository.ExpenseRequestRepository;
 import com.BK.Expense.service.IAccountService;
 import com.BK.Expense.service.IRequestService;
@@ -39,4 +40,20 @@ public class RequestServiceImpl implements IRequestService {
 
         return modelMapper.map(savedRequest, ExpenseRequestDto.class);
     }
+
+    @Override
+    public ExpenseRequestDto updateExpenseRequest(ExpenseRequestDto expenseRequestDto, long id) {
+        ExpenseRequest expenseRequest = expenseRequestRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Request", "id", id));
+
+        expenseRequest.setStatusEnum(expenseRequestDto.getStatusEnum());
+
+        ExpenseRequest updatedRequest = expenseRequestRepository.save(expenseRequest);
+
+        return modelMapper.map(updatedRequest, ExpenseRequestDto.class);
+    }
+
+
+
+
 }

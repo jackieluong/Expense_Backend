@@ -24,4 +24,15 @@ public class ExpenseRequestDto {
 //    private Instant endDate;
 
     private StatusEnum statusEnum;
+
+    private Instant createdAt;
+
+    private Instant updatedAt;
+
+    private String createdBy;
+
+    private String updatedBy;
+
+    private Instant timeout;
+
 }

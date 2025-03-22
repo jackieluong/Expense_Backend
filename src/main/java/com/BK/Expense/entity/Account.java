@@ -3,6 +3,7 @@ package com.BK.Expense.entity;
 import com.BK.Expense.enums.RoleEnum;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +14,7 @@ import lombok.Setter;
 //@DiscriminatorColumn(name = "role", discriminatorType = DiscriminatorType.STRING)
 @Getter
 @Setter
+@AllArgsConstructor
 
 public class Account {
 
@@ -20,20 +22,20 @@ public class Account {
 //    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "account_seq")
 //    @SequenceGenerator(name = "account_seq", sequenceName = "account_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected long id;
+    private long id;
 
     @Column(name = "email", nullable = false, unique = true)
-    protected String email;
+    private String email;
 
     @Column(name = "password", nullable = false)
-    protected String password;
+    private String password;
 
     @Column(name = "name", nullable = true)
-    protected String name;
+    private String name;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "role", insertable = false, updatable = false) //  Prevent duplicate mapping
-    protected RoleEnum role;
+    //  Prevent duplicate mapping
+    private RoleEnum role;
 
     public Account() {}
 

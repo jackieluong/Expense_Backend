@@ -2,16 +2,15 @@ package com.BK.Expense.dto;
 
 
 import com.BK.Expense.enums.StatusEnum;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.Instant;
 
 @Getter
 @Setter
 @ToString
-
+@NoArgsConstructor
+@AllArgsConstructor
 public class ExpenseRequestDto {
 
     private String description;

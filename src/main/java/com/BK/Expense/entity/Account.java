@@ -8,12 +8,12 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "accounts")
-@Inheritance(strategy = InheritanceType.JOINED)
+//@Inheritance(strategy = InheritanceType.JOINED)
 //@DiscriminatorColumn(name = "role", discriminatorType = DiscriminatorType.STRING)
 @Getter
 @Setter
 
-public abstract class Account {
+public class Account {
 
     @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "account_seq")

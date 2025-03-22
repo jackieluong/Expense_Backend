@@ -28,13 +28,17 @@ public class ExpenseRequest {
 
     private double expense;
 
+    private Instant timeout;
+
+    private String expenseType;
+
     @ManyToOne
     @JoinColumn(name = "employee_id")
     private Account employee;
 
-    private Instant startDate;
-
-    private Instant endDate;
+//    @ManyToOne
+//    @JoinColumn(name = "trip_id")
+//    private Trip trip;
 
     private Instant createdAt;
 
@@ -47,6 +51,8 @@ public class ExpenseRequest {
     // Before add a new job, set CreatedBy to email who add the job
     @PrePersist
     public void handleBeforeCreate() {
+
+        this.setTimeout(Instant.now().plusSeconds(7*24*60*60) ); // time out 7 days
 
         this.setCreatedBy(JwtUtil.getCurrentUserLogin()
                 .orElse(null));

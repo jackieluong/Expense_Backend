@@ -17,9 +17,11 @@ public class ExpenseRequestDto {
 
     private String employeeEmail;
 
-    private Instant startDate;
+    private String expenseType;
 
-    private Instant endDate;
+//    private Instant startDate;
+//
+//    private Instant endDate;
 
     private StatusEnum statusEnum;
 }

@@ -29,10 +29,9 @@ public class RequestServiceImpl implements IRequestService {
 
         ExpenseRequest newRequest = ExpenseRequest.builder()
                 .expense(expenseRequest.getExpense())
-                .startDate(expenseRequest.getStartDate())
-                .endDate(expenseRequest.getEndDate())
                 .description(expenseRequest.getDescription())
                 .statusEnum(StatusEnum.PENDING)
+                .expenseType(expenseRequest.getExpenseType())
                 .employee(employee)
                 .build();
 

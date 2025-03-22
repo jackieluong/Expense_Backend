@@ -13,10 +13,10 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("*")  // Allow all origins
-                        .allowedMethods("*")  // Allow all HTTP methods
-                        .allowedHeaders("*")  // Allow all headers
-                        .allowCredentials(false);
+                        .allowedOriginPatterns("**")// Chỉ định frontend của bạn nếu cần
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                        .allowedHeaders("*")
+                        .allowCredentials(true);
             }
         };
     }

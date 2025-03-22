@@ -21,7 +21,7 @@ public class ExpenseRequestController {
 
     @PostMapping
     public ResponseEntity<ResultObject> createJob(@Valid @RequestBody ExpenseRequestDto expenseRequestDto) {
-
+        System.out.println("==================="+expenseRequestDto+"==============================");
         ExpenseRequestDto expenseRequest = requestService.createExpenseRequest(expenseRequestDto);
 
         ResultObject resultObject = ResultObject.builder()

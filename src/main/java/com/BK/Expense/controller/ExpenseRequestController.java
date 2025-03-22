@@ -30,9 +30,7 @@ public class ExpenseRequestController {
                 .isSuccess(true)
                 .data(expenseRequest)
                 .build();
-
         return new ResponseEntity(resultObject, HttpStatus.CREATED);
-
     }
 
     @PutMapping

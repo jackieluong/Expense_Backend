@@ -38,6 +38,7 @@ public class SecurityConfig {
                 "/swagger-ui/**",
                 "/v3/api-docs/**",
                 "/ws/**",
+                "/api/v1/requests",
                 "/api/v1/requests/**",
                 "/api/v1/test-no-auth/**", "/storage/**", "/api/v1/jobs/**",
                 "api/v1/companies/**", "api/v1/email/**" };
@@ -49,7 +50,8 @@ public class SecurityConfig {
 
         // http.cors(Customizer.withDefaults());
         // disable Cors
-        http.cors(Customizer.withDefaults());
+        http.cors(Customizer.withDefaults()); // Kích hoạt lại CORS
+
 
         http.oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()));
 

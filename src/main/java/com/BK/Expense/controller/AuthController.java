@@ -35,7 +35,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<JwtAuthResponse> login(@Valid @RequestBody LoginDto loginDto) {
+    public ResponseEntity<ResultObject> login(@Valid @RequestBody LoginDto loginDto) {
 
 //        Account user = userService.getUserByEmail(loginDto.getUsernameOrEmail());
         Account user = accountService.getAccountByEmail(loginDto.getUsernameOrEmail());
@@ -59,10 +59,13 @@ public class AuthController {
         // .path("/")
         // .maxAge(refreshTokenExpiration)
         // .build();
-        return ResponseEntity.ok()
-                // .header(HttpHeaders.SET_COOKIE, responseCookie.toString())
-                .body(jwtAuthResponse);
-
+        ResultObject response = ResultObject.builder()
+                .isSuccess(true)
+                .message("Login successfully")
+                .httpStatus(HttpStatus.OK)
+                .data(jwtAuthResponse)
+                .build();
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
 

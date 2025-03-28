@@ -109,13 +109,13 @@ public class ExpenseRequestController {
 
 
     @GetMapping("/employee")
-    public ResponseEntity<ResultPagination> getRequestsByEmployeePagination(@RequestParam(value = "employeeId") Long employeeId,
+    public ResponseEntity<ResultPagination> getRequestsByEmployeePagination(
                                                                   @RequestParam(value = "currentPage", defaultValue = "1") int current,
                                                                   @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
                                                                   @RequestParam(value = "sortBy", defaultValue = "id") String sortBy,
                                                                   @RequestParam(value = "ascending", defaultValue = "true") String isAscending) {
 
-        Page<GetRequestDto> requestPage = requestService.getAllRequestByEmployee(employeeId, current - 1, pageSize, sortBy, Boolean.valueOf(isAscending));
+        Page<GetRequestDto> requestPage = requestService.getAllRequestByEmployee( current - 1, pageSize, sortBy, Boolean.valueOf(isAscending));
 
 
         ResultPagination<GetRequestDto> res = ResultPagination.<GetRequestDto>builder()

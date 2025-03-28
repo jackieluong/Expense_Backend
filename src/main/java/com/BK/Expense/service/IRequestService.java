@@ -18,6 +18,6 @@ public interface IRequestService {
 
     Page<GetRequestDto> getAllRequest(int currentPage, int pageSize, String sortBy, boolean isAscending);
 
-    Page<GetRequestDto> getAllRequestByEmployee(Long employeeId, int currentPage, int pageSize, String sortBy, boolean isAscending);
+    Page<GetRequestDto> getAllRequestByEmployee( int currentPage, int pageSize, String sortBy, boolean isAscending);
 
 }

@@ -156,15 +156,23 @@ public class RequestServiceImpl implements IRequestService {
     }
 
     @Override
-    public Page<GetRequestDto> getAllRequestByEmployee(Long employeeId,int currentPage, int pageSize, String sortBy, boolean isAscending) {
+    public Page<GetRequestDto> getAllRequestByEmployee(int currentPage, int pageSize, String sortBy, boolean isAscending) {
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if(authentication == null || !(authentication.getPrincipal() instanceof Jwt jwt)){
+            throw new RuntimeException("User is not authenticated");
+        }
+
+        String token = jwt.getTokenValue();
+        String userId = jwtUtil.extractUserIdFromToken(token);
 
         Sort sort = isAscending ? Sort.by(sortBy) : Sort.by(sortBy).descending();
 
         PageRequest pageRequest = PageRequest.of(currentPage, pageSize, sort);
 
 
-        Page<ExpenseRequest> expenseRequestPage= expenseRequestRepository.findByEmployeeId(employeeId,pageRequest);
+        Page<ExpenseRequest> expenseRequestPage= expenseRequestRepository.findByEmployeeId(Long.valueOf(userId),pageRequest);
 
         Page<GetRequestDto> requestResPage = expenseRequestPage.map(
                 expenseRequest -> modelMapper.map(expenseRequest, GetRequestDto.class));

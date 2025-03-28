@@ -33,10 +33,11 @@ public class ExpenseRequestController {
         return new ResponseEntity(resultObject, HttpStatus.CREATED);
     }
 
-    @PutMapping
-    public ResponseEntity<ResultObject> updateRequest(@Valid @RequestBody ExpenseRequestDto expenseRequestDto, @RequestParam(name = "id") long id) {
 
-        ExpenseRequestDto result = requestService.updateExpenseRequest(expenseRequestDto, id);
+    @PutMapping
+    public ResponseEntity<ResultObject> updateRequest(@Valid @RequestBody UpdateRequestDto updateRequest, @RequestParam(name = "id") long id) {
+
+        ExpenseRequestDto result = requestService.updateExpenseRequest(updateRequest, id);
 
         ResultObject resultObject = ResultObject.builder()
                 .httpStatus(HttpStatus.CREATED)
@@ -99,6 +100,7 @@ public class ExpenseRequestController {
                 .nextPage(requestPage.hasNext() ? requestPage.getNumber() + 2 : null)
                 .data(requestPage.getContent())
                 .totalPage(requestPage.getTotalPages())
+                .totalElement(requestPage.getNumberOfElements())
                 .build();
 
 
@@ -126,6 +128,7 @@ public class ExpenseRequestController {
                 .nextPage(requestPage.hasNext() ? requestPage.getNumber() + 2 : null)
                 .data(requestPage.getContent())
                 .totalPage(requestPage.getTotalPages())
+                .totalElement(requestPage.getNumberOfElements())
                 .build();
 
 

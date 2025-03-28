@@ -8,7 +8,7 @@ public interface IRequestService {
 
     ExpenseRequestDto createExpenseRequest(CreateRequestDto createRequest);
 
-    ExpenseRequestDto updateExpenseRequest(ExpenseRequestDto expenseRequestDto, long id);
+    ExpenseRequestDto updateExpenseRequest(UpdateRequestDto updateRequest, long id);
 
     ExpenseRequestDto acceptExpenseRequest(RequestAcceptDto requestAccept);
 

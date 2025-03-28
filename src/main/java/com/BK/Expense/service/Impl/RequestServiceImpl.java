@@ -59,11 +59,15 @@ public class RequestServiceImpl implements IRequestService {
     }
 
     @Override
-    public ExpenseRequestDto updateExpenseRequest(ExpenseRequestDto expenseRequestDto, long id) {
+    public ExpenseRequestDto updateExpenseRequest(UpdateRequestDto updateRequest, long id) {
         ExpenseRequest expenseRequest = expenseRequestRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Request", "id", id));
 
-        expenseRequest.setStatusEnum(expenseRequestDto.getStatusEnum());
+//        expenseRequest.setStatusEnum(expenseRequestDto.getStatusEnum());
+        expenseRequest.setName(updateRequest.getName());
+        expenseRequest.setDescription(updateRequest.getDescription());
+        expenseRequest.setExpenseType(updateRequest.getExpenseType());
+        expenseRequest.setExpense(updateRequest.getExpense());
 
         ExpenseRequest updatedRequest = expenseRequestRepository.save(expenseRequest);
 

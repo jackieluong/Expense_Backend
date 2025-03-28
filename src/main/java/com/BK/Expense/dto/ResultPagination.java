@@ -16,11 +16,11 @@ public class ResultPagination<T> {
     public Integer nextPage;
     public Integer previousPage;
     public Integer totalPage;
-    public Integer totalElement;
+    public Long totalElement;
 
     public ResultPagination(boolean isSuccess, String message, HttpStatus httpStatus,
                             List<T> data, int currentPage, int pageSize, Integer nextPage,
-                            Integer previousPage, Integer totalPage, Integer totalElement) {
+                            Integer previousPage, Integer totalPage, Long totalElement) {
         this.isSuccess = isSuccess;
         this.message = message;
         this.httpStatus = httpStatus;

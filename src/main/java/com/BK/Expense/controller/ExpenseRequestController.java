@@ -100,7 +100,7 @@ public class ExpenseRequestController {
                 .nextPage(requestPage.hasNext() ? requestPage.getNumber() + 2 : null)
                 .data(requestPage.getContent())
                 .totalPage(requestPage.getTotalPages())
-                .totalElement(requestPage.getNumberOfElements())
+                .totalElement(requestPage.getTotalElements())
                 .build();
 
 
@@ -128,7 +128,7 @@ public class ExpenseRequestController {
                 .nextPage(requestPage.hasNext() ? requestPage.getNumber() + 2 : null)
                 .data(requestPage.getContent())
                 .totalPage(requestPage.getTotalPages())
-                .totalElement(requestPage.getNumberOfElements())
+                .totalElement(requestPage.getTotalElements())
                 .build();
 
 

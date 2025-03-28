@@ -3,10 +3,7 @@ package com.BK.Expense.entity;
 import com.BK.Expense.enums.StatusEnum;
 import com.BK.Expense.security.JwtUtil;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.Instant;
 
@@ -14,12 +11,16 @@ import java.time.Instant;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
+
 public class ExpenseRequest {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected long id;
+
+    private String name;
 
     private String description;
 
@@ -32,7 +33,7 @@ public class ExpenseRequest {
 
     private String expenseType;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")
     private Account employee;
 

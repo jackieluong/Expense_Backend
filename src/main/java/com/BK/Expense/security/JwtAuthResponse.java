@@ -13,7 +13,7 @@ public class JwtAuthResponse
     private String accessToken;
 
     @JsonProperty("user")
-    private UserLogin user;
+    private UserLogin userLogin;
 
     public JwtAuthResponse(String accessToken) {
         this.accessToken = accessToken;
@@ -31,11 +31,11 @@ public class JwtAuthResponse
     }
 
     public UserLogin getUserLogin() {
-        return user;
+        return userLogin;
     }
 
     public void setUserLogin(UserLogin userLogin) {
-        this.user = userLogin;
+        this.userLogin = userLogin;
     }
 
     @Getter

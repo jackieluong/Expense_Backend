@@ -1,23 +1,18 @@
 package com.BK.Expense.dto;
 
-
-import com.BK.Expense.enums.StatusEnum;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.time.Instant;
-
+@AllArgsConstructor
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
-@AllArgsConstructor
-public class ExpenseRequestDto {
-
-    private long id;
-
+public class CreateRequestDto {
     private String name;
 
     private String description;
@@ -30,21 +25,5 @@ public class ExpenseRequestDto {
 
     @NotBlank(message = "Expense Type must not be blank")
     private String expenseType;
-
-//    private Instant startDate;
-//
-//    private Instant endDate;
-
-    private StatusEnum statusEnum;
-
-    private Instant createdAt;
-
-    private Instant updatedAt;
-
-    private String createdBy;
-
-    private String updatedBy;
-
-    private Instant timeout;
 
 }

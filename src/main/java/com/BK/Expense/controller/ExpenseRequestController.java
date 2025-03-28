@@ -1,10 +1,10 @@
 package com.BK.Expense.controller;
 
-import com.BK.Expense.dto.ExpenseRequestDto;
-import com.BK.Expense.dto.ResultObject;
+import com.BK.Expense.dto.*;
 
 import com.BK.Expense.service.IRequestService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,9 +20,9 @@ public class ExpenseRequestController {
     }
 
     @PostMapping
-    public ResponseEntity<ResultObject> createJob(@Valid @RequestBody ExpenseRequestDto expenseRequestDto) {
+    public ResponseEntity<ResultObject> createJob(@Valid @RequestBody CreateRequestDto createRequest) {
 
-        ExpenseRequestDto expenseRequest = requestService.createExpenseRequest(expenseRequestDto);
+        ExpenseRequestDto expenseRequest = requestService.createExpenseRequest(createRequest);
 
         ResultObject resultObject = ResultObject.builder()
                 .httpStatus(HttpStatus.CREATED)
@@ -49,5 +49,87 @@ public class ExpenseRequestController {
 
     }
 
+    @PutMapping("/accept")
+    public ResponseEntity<ResultObject> acceptRequest(@Valid @RequestBody RequestAcceptDto requestAccept) {
+
+        ExpenseRequestDto result = requestService.acceptExpenseRequest(requestAccept);
+
+        ResultObject resultObject = ResultObject.builder()
+                .httpStatus(HttpStatus.OK)
+                .message("Update successfully")
+                .isSuccess(true)
+                .data(result)
+                .build();
+
+        return new ResponseEntity(resultObject, HttpStatus.OK);
+
+    }
+    @PutMapping("/reject")
+    public ResponseEntity<ResultObject> rejectRequest(@Valid @RequestBody RequestRejectDto requestReject) {
+
+        ExpenseRequestDto result = requestService.rejectExpenseRequest(requestReject);
+
+        ResultObject resultObject = ResultObject.builder()
+                .httpStatus(HttpStatus.OK)
+                .message("Update successfully")
+                .isSuccess(true)
+                .data(result)
+                .build();
+
+        return new ResponseEntity(resultObject, HttpStatus.OK);
+
+    }
+
+    @GetMapping
+    public ResponseEntity<ResultPagination> getRequestsPagination(@RequestParam(value = "currentPage", defaultValue = "1") int current,
+                                                              @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
+                                                              @RequestParam(value = "sortBy", defaultValue = "id") String sortBy,
+                                                              @RequestParam(value = "ascending", defaultValue = "true") String isAscending) {
+
+        Page<GetRequestDto> requestPage = requestService.getAllRequest(current - 1, pageSize, sortBy, Boolean.valueOf(isAscending));
+
+
+        ResultPagination<GetRequestDto> res = ResultPagination.<GetRequestDto>builder()
+                .isSuccess(true)
+                .message("Get requests successfully")
+                .httpStatus(HttpStatus.OK)
+                .currentPage(requestPage.getNumber() + 1)
+                .pageSize(requestPage.getSize())
+                .previousPage(requestPage.hasPrevious() ? requestPage.getNumber() : null)
+                .nextPage(requestPage.hasNext() ? requestPage.getNumber() + 2 : null)
+                .data(requestPage.getContent())
+                .totalPage(requestPage.getTotalPages())
+                .build();
+
+
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+
+
+    @GetMapping("/employee")
+    public ResponseEntity<ResultPagination> getRequestsByEmployeePagination(@RequestParam(value = "employeeId") Long employeeId,
+                                                                  @RequestParam(value = "currentPage", defaultValue = "1") int current,
+                                                                  @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
+                                                                  @RequestParam(value = "sortBy", defaultValue = "id") String sortBy,
+                                                                  @RequestParam(value = "ascending", defaultValue = "true") String isAscending) {
+
+        Page<GetRequestDto> requestPage = requestService.getAllRequestByEmployee(employeeId, current - 1, pageSize, sortBy, Boolean.valueOf(isAscending));
+
+
+        ResultPagination<GetRequestDto> res = ResultPagination.<GetRequestDto>builder()
+                .isSuccess(true)
+                .message("Get requests successfully")
+                .httpStatus(HttpStatus.OK)
+                .currentPage(requestPage.getNumber() + 1)
+                .pageSize(requestPage.getSize())
+                .previousPage(requestPage.hasPrevious() ? requestPage.getNumber() : null)
+                .nextPage(requestPage.hasNext() ? requestPage.getNumber() + 2 : null)
+                .data(requestPage.getContent())
+                .totalPage(requestPage.getTotalPages())
+                .build();
+
+
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
 
 }

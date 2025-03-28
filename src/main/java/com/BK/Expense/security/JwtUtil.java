@@ -27,7 +27,7 @@ public class JwtUtil {
     public static final MacAlgorithm JWT_ALGORITHM = MacAlgorithm.HS512;
 
     private final JwtEncoder jwtEncoder;
-
+    private final JwtDecoder jwtDecoder;
 
     @Value("${app.jwt-secret}")
     private String jwtSecret;
@@ -40,20 +40,13 @@ public class JwtUtil {
     private long refreshTokenExpiration;
 
 
-    public JwtUtil(JwtEncoder jwtEncoder) {
+    public JwtUtil(JwtEncoder jwtEncoder, JwtDecoder jwtDecoder) {
         this.jwtEncoder = jwtEncoder;
-    }
-
-    private SecretKey getSecretKey(){
-        byte[] keyBytes = Base64.from(jwtSecret).decode();
-        return new SecretKeySpec(keyBytes, 0, keyBytes.length , JwtUtil.JWT_ALGORITHM.getName());
+        this.jwtDecoder = jwtDecoder;
     }
 
 
     public Jwt verifyToken(String token){
-        NimbusJwtDecoder jwtDecoder = NimbusJwtDecoder.withSecretKey(
-                getSecretKey()).macAlgorithm(JwtUtil.JWT_ALGORITHM).build();
-
         try{
             Jwt decodedToken =  jwtDecoder.decode(token);
             return decodedToken;
@@ -86,6 +79,19 @@ public class JwtUtil {
         }
     }
 
+    public String extractUserRoleFromToken(String token){
+        try{
+            Map<String, Object> userClaim = extractClaim(token, "user");
+
+            if(userClaim != null && userClaim.containsKey("role")){
+                return userClaim.get("role").toString();
+            }
+            return null;
+
+        }catch(RuntimeException e){
+            return null;
+        }
+    }
     public String createAccessToken( Account user){
 
         Instant now = Instant.now();

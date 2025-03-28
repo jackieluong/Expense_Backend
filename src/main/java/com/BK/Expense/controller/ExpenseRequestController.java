@@ -34,7 +34,7 @@ public class ExpenseRequestController {
     }
 
 
-    @PutMapping
+    @PutMapping("/{id}")
     public ResponseEntity<ResultObject> updateRequest(@Valid @RequestBody UpdateRequestDto updateRequest, @PathVariable(name = "id") long id) {
 
         ExpenseRequestDto result = requestService.updateExpenseRequest(updateRequest, id);

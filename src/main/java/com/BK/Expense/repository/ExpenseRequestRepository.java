@@ -8,4 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface ExpenseRequestRepository extends JpaRepository<ExpenseRequest, Long> {
 
     Page<ExpenseRequest> findByEmployeeId(Long employeeId , Pageable pageable);
+
+
+    Page<ExpenseRequest> findByStatusEnum(String expenseStatus , Pageable pageable);
 }

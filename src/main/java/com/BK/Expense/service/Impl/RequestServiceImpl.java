@@ -139,12 +139,28 @@ public class RequestServiceImpl implements IRequestService {
 
     @Override
     public Page<GetRequestDto> getAllRequest(int currentPage, int pageSize, String sortBy, boolean isAscending) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if(authentication == null || !(authentication.getPrincipal() instanceof Jwt jwt)){
+            throw new RuntimeException("User is not authenticated");
+        }
+
+        String token = jwt.getTokenValue();
+        String userRole = jwtUtil.extractUserRoleFromToken(token);
+
+
         Sort sort = isAscending ? Sort.by(sortBy) : Sort.by(sortBy).descending();
 
         PageRequest pageRequest = PageRequest.of(currentPage, pageSize, sort);
 
+        Page<ExpenseRequest> expenseRequestPage;
 
-        Page<ExpenseRequest> expenseRequestPage= expenseRequestRepository.findAll(pageRequest);
+        if(userRole.equals(RoleEnum.FINANCE_MANAGER.toString())){
+            expenseRequestPage =  expenseRequestRepository.findByStatusEnum(StatusEnum.MANAGER_ACCEPTED.toString(), pageRequest);
+        }else{
+            expenseRequestPage =  expenseRequestRepository.findAll(pageRequest);
+        }
+
 
 
         Page<GetRequestDto> requestResPage = expenseRequestPage.map(

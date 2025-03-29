@@ -40,4 +40,17 @@ public class BudgetServiceImpl implements IBudgetService {
 
         return modelMapper.map(budget, BudgetResponse.class);
     }
+
+    @Override
+    public String updateBudgetAmount(Long employeeId, double amount) {
+        try {
+            budgetRepository.updateBudgetAmount(employeeId, amount);
+            return "Update successfully";
+        } catch (RuntimeException e) {
+            throw new RuntimeException(e);
+        }
+
+
+
+    }
 }

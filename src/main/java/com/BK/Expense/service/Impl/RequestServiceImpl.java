@@ -21,6 +21,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class RequestServiceImpl implements IRequestService {
 
@@ -156,7 +158,7 @@ public class RequestServiceImpl implements IRequestService {
         Page<ExpenseRequest> expenseRequestPage;
 
         if(userRole.equals(RoleEnum.FINANCE_MANAGER.toString())){
-            expenseRequestPage =  expenseRequestRepository.findByStatusEnum(StatusEnum.MANAGER_ACCEPTED, pageRequest);
+            expenseRequestPage =  expenseRequestRepository.findByStatusEnumIn(List.of( StatusEnum.MANAGER_ACCEPTED, StatusEnum.CLOSED, StatusEnum.FINANCE_ACCEPTED), pageRequest);
         }else{
             expenseRequestPage =  expenseRequestRepository.findAll(pageRequest);
         }

@@ -198,5 +198,15 @@ public class RequestServiceImpl implements IRequestService {
         return requestResPage;
     }
 
+    @Override
+    public String closeRequest(long id) {
+        ExpenseRequest expense = findById(id);
+
+
+        expenseRequestRepository.delete(expense);
+
+        return "Delete successfully";
+    }
+
 
 }

@@ -135,4 +135,20 @@ public class ExpenseRequestController {
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ResultObject> deleteRequest(@PathVariable(name = "id") long id) {
+
+        String msg = requestService.closeRequest(id);
+
+        ResultObject resultObject = ResultObject.builder()
+                .httpStatus(HttpStatus.OK)
+                .message(msg)
+                .isSuccess(true)
+                .data(null)
+                .build();
+
+        return new ResponseEntity(resultObject, HttpStatus.OK);
+
+    }
+
 }

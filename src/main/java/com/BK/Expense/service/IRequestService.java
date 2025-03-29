@@ -20,4 +20,6 @@ public interface IRequestService {
 
     Page<GetRequestDto> getAllRequestByEmployee( int currentPage, int pageSize, String sortBy, boolean isAscending);
 
+    String closeRequest(long id);
+
 }

@@ -156,7 +156,7 @@ public class RequestServiceImpl implements IRequestService {
         Page<ExpenseRequest> expenseRequestPage;
 
         if(userRole.equals(RoleEnum.FINANCE_MANAGER.toString())){
-            expenseRequestPage =  expenseRequestRepository.findByStatusEnum(StatusEnum.MANAGER_ACCEPTED.toString(), pageRequest);
+            expenseRequestPage =  expenseRequestRepository.findByStatusEnum(StatusEnum.MANAGER_ACCEPTED, pageRequest);
         }else{
             expenseRequestPage =  expenseRequestRepository.findAll(pageRequest);
         }

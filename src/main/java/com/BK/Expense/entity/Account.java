@@ -37,6 +37,9 @@ public class Account {
     //  Prevent duplicate mapping
     private RoleEnum role;
 
+    @OneToOne(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Budget budget;
+
     public Account() {}
 
 

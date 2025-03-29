@@ -6,6 +6,8 @@ import com.BK.Expense.dto.RegisterDto;
 import com.BK.Expense.dto.ResultObject;
 
 import com.BK.Expense.entity.Account;
+import com.BK.Expense.entity.Budget;
+import com.BK.Expense.enums.RoleEnum;
 import com.BK.Expense.repository.AccountRepository;
 import com.BK.Expense.security.JwtUtil;
 import com.BK.Expense.service.IAuthService;
@@ -62,7 +64,12 @@ public class AuthServiceImpl implements IAuthService {
         account.setPassword(passwordEncoder.encode(registerDto.getPassword()));
         account.setRole(registerDto.getRole());
 
-
+        if(registerDto.getRole().equals(RoleEnum.EMPLOYEE)){
+            Budget budget = new Budget();
+            budget.setAmount(0);
+            budget.setAccount(account);
+            account.setBudget(budget);
+        }
         Account savedAccount = accountRepository.save(account);
 
         return modelMapper.map(savedAccount, AccountDto.class);

@@ -64,6 +64,14 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorDetails, HttpStatus.FORBIDDEN);
     }
 
+    @ExceptionHandler(PaymentException.class)
+    public ResponseEntity<ErrorDetails> handlePaymentException(PaymentException exception, WebRequest webRequest) {
+        ErrorDetails errorDetails = new ErrorDetails(new Date(),"Access Denied: " +  exception.getMessage(),
+                webRequest.getDescription(false));
+
+        return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
     @ExceptionHandler(AuthorizationDeniedException.class)
     public ResponseEntity<ErrorDetails> handleResourceNotFoundException(AuthorizationDeniedException exception, WebRequest webRequest) {
         ErrorDetails errorDetails = new ErrorDetails(new Date(), exception.getMessage(),

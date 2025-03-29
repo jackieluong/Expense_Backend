@@ -15,13 +15,13 @@ import java.time.Instant;
 @NoArgsConstructor
 public class Budget {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long employeeId;
 
     private double amount;
 
     @OneToOne
-    @JoinColumn(name = "employee_id")
+    @MapsId
+    @JoinColumn(name = "employee_id", unique = true, nullable = false)
     private Account account;
 
     private Instant createdAt;
